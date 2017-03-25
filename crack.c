@@ -40,20 +40,17 @@ int main(int argc, char* argv[]){
 }
 
 void bruteAtk(char* password, int index, int position){
-    //iterate through the alphabet for each position in the array
+    //iterate through the alphabet for current index
     for(int i = 0; i < alpha_length; i++){
         password[index] = alpha[i];
         if(index == position - 1){
+            //if encrypted password matches original hash, print function and break from function
             if(strcmp(hash, crypt(password, salt)) == 0){
-               printf("%s", password);
+                printf("%s", password);
                 return; 
             }
-            //return;
         }
-        //if password == crypt(hash,salt) print pass
-        /*else if(!strcmp(password, crypt(hash, salt)) == 0){
-            
-        } */
+        //if password string doesn't match hash, recur bruteAtk for the next index
         else{ bruteAtk(password, index + 1, position);}
     }
     return;
